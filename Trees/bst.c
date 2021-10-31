@@ -40,21 +40,21 @@ int main(void)
 
 	for (;;) {
 		printf("\nChoose:\n"
-		" 1. Insert\n"
-		" 2. Preorder\n"
-		" 3. Postorder\n"
-		" 4. Inorder\n"
-		" 5. No of nodes\n"
-		" 6. No of leaf nodes\n"
-		" 7. Height of the tree\n"
-		" 8. Delete a node\n"
-		" 9. Recursively insert\n"
-		"10. Search\n"
-		"11. Search using recursion\n"
-		"13. Find smallest\n"
-		"14. Find Largest\n"
-		"-1. Exit\n\n"
-		"Choice:");
+			" 1. Insert\n"
+			" 2. Preorder\n"
+			" 3. Postorder\n"
+			" 4. Inorder\n"
+			" 5. No of nodes\n"
+			" 6. No of leaf nodes\n"
+			" 7. Height of the tree\n"
+			" 8. Delete a node\n"
+			" 9. Recursively insert\n"
+			"10. Search\n"
+			"11. Search using recursion\n"
+			"13. Find smallest\n"
+			"14. Find Largest\n"
+			"-1. Exit\n\n"
+			"Choice:");
 		scanf(" %d", &ch);
 		printf("\n");
 		CLEANLINE;					//Similar to fflush

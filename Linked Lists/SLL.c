@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define CLEANLINE while ((CH = getchar()) != '\n' && CH != EOF)
 
 struct node {
 	int key;
@@ -30,12 +31,13 @@ void reverse(list_t *l);
 int delete_at_position(list_t *l, int pos);
 int search(list_t *l, int key);
 void merge(list_t *l1, list_t *l2, list_t *l3);
+void print_recurse(node_t *n);
 void destroy(list_t *l);
 void reverse(list_t *l);
 
 int main(void)
 {
-	int key, code, key2;
+	int CH, key, code, key2;
 
 	list_t *l1, *l2, *l3;
 
@@ -66,6 +68,7 @@ int main(void)
 			"-1. Exit\n"
 			"Code: ");
 		scanf(" %d", &code);
+		printf("\n");
 
 		switch (code)
 		{
