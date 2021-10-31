@@ -181,6 +181,7 @@ int main(void)
 
 void display(list_t *l)
 {
+	//First print the node's value, then move to next node
 	for (node_t *pres = l->head; pres != NULL; pres = pres->next)
 		printf("%d -> ", pres->key);
 	printf("NULL\n\n");
@@ -189,6 +190,7 @@ void display(list_t *l)
 
 void init_list(list_t **l)
 {	
+	//Allocate memory for the list, and then set the head to NULL
 	*l = malloc(sizeof(list_t));
 	(*l)->head = NULL;
 }
@@ -196,25 +198,28 @@ void init_list(list_t **l)
 
 void insert_head(list_t *l, int key)
 {
+	//Allocate memory for a node
 	node_t *temp = malloc(sizeof(node_t));
 
+	//Set node's data to key
 	temp->key = key;						
-	temp->next = l->head;
-	l->head = temp;
+	temp->next = l->head;			//Make temp point to the node being pointed by list's head
+	l->head = temp;					//Make list point to the node
 
 }
 
 
 void insert_tail(list_t *l, int key)
 {
+	//Allocate memory for the node
 	node_t *pres, *temp = malloc(sizeof(node_t));
 	temp->key = key;
-	temp->next = NULL;
+	temp->next = NULL;				//The tail is the last node, so set n->next to NULL
 
-
-	if (l->head == NULL) {
+	if (l->head == NULL) {			//Empty list condition
 		l->head = temp;
 	} else {
+		//Iterate through the list until the last position is found
 		for (pres = l->head; pres->next != NULL; pres = pres->next)
 			;
 		pres->next = temp;
@@ -225,12 +230,14 @@ void insert_tail(list_t *l, int key)
 int remove_head(list_t *l)
 {
 	node_t *pres;
-	int key;
+	int key;							//For getting value of the first node
 
-	if (l->head == NULL)
+	if (l->head == NULL){				//Case where list is already empty
 		printf("The list is empty!\n");
-	else {
-		pres = l->head;
+		key = -1;
+	}
+	else {								//Copy value of head into the key
+		pres = l->head;					//Then remove head
 		l->head = pres->next;
 		key = pres->key;
 		free(pres);
@@ -241,16 +248,20 @@ int remove_head(list_t *l)
 int remove_tail(list_t *l)
 {
 	int key;
+	//Trailing pointer technique: Iterating through the list 
+	//using two pointers. The trailing pointer will set the value
+	//of the second last node to null
+	//The pointer that stays ahead will be freed
 	node_t *pres, *prev;
 
-	if (l->head == NULL)								//Empty List
+	if (l->head == NULL)								//Empty List condition
 		printf("The list is empty!\n");				
-	else if (l->head->next == NULL) {						//Only one node
+	else if (l->head->next == NULL) {					//Only one node
 		key = l->head->key;
 		free(l->head);
 		l->head = NULL;
 	}
-	else {
+	else {												//Multiple nodes
 		for (pres = l->head; 
 			pres->next != NULL; 
 			prev = pres, pres = pres->next) 
@@ -264,10 +275,13 @@ int remove_tail(list_t *l)
 
 void swap(list_t *l, int x, int y)
 {
+	//Swapping two nodes through their addresses
 	node_t *prevx, *prevy, *presx, *presy, *temp;
 
 
-
+	//First, make sure that the values that we're looking for
+	//exist in the list. If any of them don't, then return from 
+	//the function
 	for (prevx = NULL, presx = l->head; 
 		presx != NULL && presx->key != x; 
 		prevx = presx, presx = presx->next)
@@ -287,10 +301,9 @@ void swap(list_t *l, int x, int y)
 		return;
 	}
 
-	if (x == y)
-		return;
-
-
+	//First, change the next-nodes being pointed by the pointer 
+	//which is at the back. Then change the next-nodes pointed 
+	//by the pointers at the front
 	if (prevx != NULL)
 		prevx->next = presy;
 	else 
@@ -301,6 +314,7 @@ void swap(list_t *l, int x, int y)
 	else
 		l->head = presx;
 
+	//Swap the two nodes
 	temp = presy->next;
 	presy->next = presx->next;
 	presx->next = temp;
@@ -310,18 +324,25 @@ void swap(list_t *l, int x, int y)
 
 void insert_at_position(list_t *l, int key, int pos)
 {
+	//Initializing count, and then allocating memory
+	//The node's next pointer is initially initialized to NULL
+	//It can be changed later, in the case it gets inserted
+	//in the middle of the list
+	//
+	//This method also uses trailing pointers
+	//
 	int count = 1;
 	node_t *temp, *pres, *prev;
-	temp = malloc(sizeof(node_t));
+	temp = malloc(sizeof(node_t));	//Temp is the node to be added
 	temp->key = key;
 	temp->next = NULL;
 
-	for (pres = l->head, prev = NULL;
-		pres != NULL && count < pos;
+	for (pres = l->head, prev = NULL;				//Counting till we reach the
+		pres != NULL && count < pos;				//desired position
 		prev = pres, pres = pres->next, count++)
 			;
 
-	if (pres != NULL) {
+	if (pres != NULL) {				//Position reached
 		if (prev == NULL) {
 			temp->next = l->head;
 			l->head = temp;
@@ -329,14 +350,14 @@ void insert_at_position(list_t *l, int key, int pos)
 			temp->next = pres;
 			prev->next = temp;
 		}
-	} else {
-
+	} else {							
+		//Case where the list is either NULL
 		if (count == pos)
-			if (prev == NULL)
+			if (prev == NULL)			//or has just one node
 				l->head = temp;
 			else 
 				prev->next = temp;
-		else 
+		else								//Position unreachable 
 			printf("Invalid position\n");
 	}
 
@@ -344,6 +365,10 @@ void insert_at_position(list_t *l, int key, int pos)
 
 void insert_order(list_t *l, int key)
 {
+	//Trailing pointer method
+	//Assumes that the list is also ordered initially
+	//Traverse through the list until you find the key
+	//which is greater than the given key
 	node_t *temp, *prev, *pres;
 	temp = malloc(sizeof(node_t));
 	temp->key = key;
@@ -354,6 +379,10 @@ void insert_order(list_t *l, int key)
 		prev = pres, pres = pres->next)
 			;
 
+	//If you don't find the node (pres reaches NULL),
+	//then insert the node right away
+	//Otherwise, insert behind pres
+	//
 	if (prev == NULL) {
 		temp->next = l->head;
 		l->head = temp;
@@ -366,6 +395,13 @@ void insert_order(list_t *l, int key)
 
 void reverse(list_t *l)
 {
+	//Trailing pointers method
+	//Uses 3 pointers in total.
+	//Set the present node's next pointer to previous, 
+	//and then keep incrementing the present to the
+	//next pointer
+	//After reaching the end (present = NULL), set
+	//prev as the head of the list
 	node_t *prev, *pres, *next;
 
 	pres = l->head;
