@@ -8,8 +8,11 @@ I prefer using `for` loops in comparison to while loops for iterating through no
 
 Trying to keep the code as concise as possible, you might also see values being changed in pointers using post-increment operators in a single line
 
+Also, I prefer declaring structures and then defining their type with `typedef`, a habit I picked up from K.N. King's book (C Programming, A Modern Approach)
 
-
+I also don't explicitly typecast mallocs, reason being
+- https://stackoverflow.com/questions/605845/do-i-cast-the-result-of-malloc
+- https://stackoverflow.com/questions/7545365/why-does-this-code-segfault-on-64-bit-architecture-but-work-fine-on-32-bit
 
 
 
