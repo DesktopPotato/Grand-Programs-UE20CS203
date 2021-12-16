@@ -1,5 +1,4 @@
 //GRAND PROGRAM FOR TREES
-//Please send any bugs reports, queries or doubts to Aditya Rao, PES1UG20CS022
 //
 
 #include <stdio.h>
@@ -211,19 +210,15 @@ int count(node_t *node)
 
 int minimum(node_t *t) 
 {
-	for (	; 
-		t->left != NULL; 
-		t = t->left)
-		;
+	while(t->left != NULL)
+		t = t->left;
 	return t->data;
 }
 
 int maximum(node_t *t)
 {
-	for (	; 
-		t->right != NULL; 
-		t = t->right)
-		;
+	while(t->right != NULL)
+		t = t->right;
 	return t->data;
 }
 
@@ -301,8 +296,7 @@ node_t *rinsert(node_t *t, int key)
 
 	node_t *temp;
 
-	if (t == NULL)
-	{
+	if (t == NULL) {
 		temp = malloc(sizeof(node_t));
 		temp->data = key;
 		temp->left = temp->right = NULL;

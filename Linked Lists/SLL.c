@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define CLEANLINE while ((CH = getchar()) != '\n' && CH != EOF)
-
 struct node {
 	int key;
 	struct node *next;
