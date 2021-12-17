@@ -32,6 +32,7 @@ void merge(list_t *l1, list_t *l2, list_t *l3);
 void print_recurse(node_t *n);
 void destroy(list_t *l);
 void reverse(list_t *l);
+void delete_alternate(list_t *l);
 
 int main(void)
 {
@@ -63,6 +64,7 @@ int main(void)
 			"15. Delete at position i\n"
 			"16. Display merged list\n"
 			"17. Destroy list\n"
+			"18. Delete alternate nodes\n"
 			"-1. Exit\n"
 			"Code: ");
 		scanf(" %d", &code);
@@ -164,6 +166,11 @@ int main(void)
 			case 17:			printf("Enter list number (1/2): ");
 								scanf(" %d", &code);
 								(code == 1) ? destroy(l1): destroy(l2);
+								break;
+
+			case 18:			printf("Enter list number (1/2): ");
+								scanf(" %d", &code);
+								(code == 1) ? delete_alternate(l1): delete_alternate(l2);
 								break;
 
 			case -1:			return 0;
@@ -526,4 +533,63 @@ void destroy(list_t *l)
 		free(death);
 	}
 	l->head = NULL;
+}
+
+
+
+void delete_alternate(list_t *l)
+{
+	node_t *tempone, *temptwo, *freethis;
+	
+	//Looking at the non-general cases:
+	//If list is empty
+	if (l->head == NULL) {
+		printf("The list is empty\n");
+		return;
+	} 
+	
+	//or if list has only one member
+	if (l->head->next == NULL) {
+		printf("Your list has only one member\n");
+		return;
+	}
+
+	//Take two pointers, tempone and temptwo
+	//We shall be deleting every second node, to which
+	//tempone shall be assigned and then freed
+	//First initialize temptwo to be the first node
+	//and then tempone to be the next node
+	//free the node in every iteration
+	for (temptwo = l->head, tempone = temptwo->next; 
+		tempone != NULL; 
+		free(freethis)) 
+	{
+		//freethis is the pointer used for freeing
+		freethis = tempone;
+		//Increment tempone to go to the next node
+		tempone = tempone->next;
+
+
+		//Now, if we've reached the end of the list
+		if (tempone == NULL) {
+			//Make temptwo's next pointer NULL,
+			//since that node will get freed.
+			temptwo->next = NULL;
+			free(freethis);
+			//Return from the function to break
+			//the loop
+			return;
+		}
+
+		//If we haven't reached the end of the list
+		//make temptwo's next point to tempone's current 
+		//node
+		temptwo->next = tempone;
+		//Now, assign tempone to temptwo
+		temptwo = tempone;
+		//Now make tempone the node next to temptwo
+		tempone = tempone->next;
+		//Let the loop repeat
+	}
+
 }
