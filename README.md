@@ -1,5 +1,7 @@
 # Grand-Programs-UE20CS203
 Grand Programs for every Data Structure including all their operations
+Author: Aditya Rao
+Course Intstructor: Prof. Dinesh Singh
 
 
 ## Some idioms that I use, so you won't get confused
