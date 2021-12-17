@@ -23,4 +23,4 @@ I also don't explicitly typecast mallocs, reason being
 
 
 
-For any queries, doubts or bug reports, please send an email to pesu1ug20cs022@pesu.pes.edu, Aditya Rao
+For any queries or bug reports, please send an email to pesu1ug20cs022@pesu.pes.edu, Aditya Rao
