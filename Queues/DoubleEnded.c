@@ -1,6 +1,6 @@
 //Double Ended Queues:
-//Very similar to Circular Doubly Linked List
-//(main difference is that CDLL has only one
+//Very similar to Doubly Linked List
+//(main difference is that DLL has only one
 //rear pointer but DE Queues have both front
 //and rear pointer)
 
